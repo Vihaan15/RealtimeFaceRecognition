@@ -3,6 +3,13 @@ function setup() {
      canvas.center();
       video = createCapture(VIDEO);
        video.hide();
+
+       classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/v_sl95BzE/model.json')
+    }
+    
+
+    function modelLoaded(){
+        console.log('Model Loaded!');
     }
 
     function draw(){
@@ -21,6 +28,17 @@ function setup() {
     
     fill(83,40,10);
     stroke(0,0,0);
-    circle(0,0,0);
+    circle(0,0,0);}
+    
+    
+    function gotResult(error, results){
+    if(error) {
+        console.error(error)
+    } else{
+    console.log(results);
+    document.getElementById("result_object_name").innerHTML = results[0].label;
+    document.getElementById("result_object_accuracy").innerHTML = results[0].confidence.toFixed(3);
+    }
     
     }
+    
